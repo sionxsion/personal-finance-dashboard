@@ -1,0 +1,40 @@
+<div>
+  <div class="px-6 py-4">
+    <p class="font-bold text-xl mb-2">{{ title() }}</p>
+    <p class="font-bold text-xl mb-2">{{ amount() }}</p>
+    <!-- <p class="font-bold text-xl mb-2">{{ positiveAmount() }}</p>
+    <p class="font-bold text-xl mb-2">{{ negativeAmount() }}</p> -->
+    <div style="display: flex; align-items: center; width: 100%; height: 2rem; gap: 10px">
+      <div>negative</div>
+
+      <!-- Left Container (Negative) -->
+      <div
+        style="flex: 1; display: flex; justify-content: flex-end; height: 1rem; background: #f0f0f0"
+      >
+        <!-- This bar grows from right to left because of justify-content: flex-end -->
+        <div style="background: red; height: 1rem" [style.width.%]="negativeAmount()"></div>
+      </div>
+
+      <!-- Center Marker -->
+      <div style="font-weight: bold">0</div>
+
+      <!-- Right Container (Positive) -->
+      <div
+        style="
+          flex: 1;
+          display: flex;
+          justify-content: flex-start;
+          height: 1rem;
+          background: #f0f0f0;
+        "
+      >
+        <!-- This bar grows from left to right naturally -->
+        <div style="background: blue; height: 1rem" [style.width.%]="positiveAmount()">
+          <!-- {{ this.positiveAmount() | number: '1.2-2' }}% -->
+        </div>
+      </div>
+
+      <div>positive</div>
+    </div>
+  </div>
+</div>

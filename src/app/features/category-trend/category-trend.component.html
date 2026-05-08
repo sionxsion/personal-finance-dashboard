@@ -1,0 +1,16 @@
+<div class="trend-data">
+  <h2>
+    Expenses By month on the category:
+    <select #categorySelect (change)="onCategoryChange(categorySelect.value)">
+      @for (c of categories(); track c) {
+        <option [value]="c">{{ c }}</option>
+      }
+    </select>
+  </h2>
+  <div class="month-data">
+    @for (item of trend(); track item.month) {
+      <p>Month: {{ item.month }} - Expense: {{ item.amount }}</p>
+      <div class="month-data-bar" [style.width.px]="item.amount"></div>
+    }
+  </div>
+</div>

@@ -6,10 +6,6 @@
     "outDir": "./out-tsc/app",
     "types": []
   },
-  "include": [
-    "src/**/*.ts"
-  ],
-  "exclude": [
-    "src/**/*.spec.ts"
-  ]
+  "include": ["src/**/*.ts", "src/app/features/BalanceCard", "src/app/features/summary-card"],
+  "exclude": ["src/**/*.spec.ts"]
 }

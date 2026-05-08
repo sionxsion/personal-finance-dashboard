@@ -1,0 +1,20 @@
+.trend-data {
+  display: flex;
+  flex-direction: column;
+  margin: 2rem;
+  padding: 2rem;
+  background-color: aqua;
+  border-radius: 1rem;
+}
+
+.month-data {
+  display: flex;
+  flex-direction: column;
+  margin-block: 1rem;
+}
+
+.month-data-bar {
+  background: blue;
+  height: 1rem;
+  max-width: 80vw;
+}

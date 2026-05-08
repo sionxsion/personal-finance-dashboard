@@ -1,0 +1,65 @@
+<div
+  style="
+    display: flex;
+    justify-content: center;
+    margin-bottom: 1rem;
+    padding-block: 1rem;
+    background-color: azure;
+  "
+>
+  <h1 style="font-size: larger">Finance Dashboard</h1>
+</div>
+
+<div style="display: flex; gap: 1rem; padding: 1rem">
+  <app-balance-card
+    style="width: 50%; background-color: antiquewhite; border-radius: 0.6rem"
+    title="Total balance"
+    [amount]="totalBalance()"
+    [totalAmount]="totalAmount()"
+  />
+  <div style="width: 50%; padding: 1rem; background-color: antiquewhite; border-radius: 0.6rem">
+    <h1>Summary</h1>
+    <hr style="margin-block: 0.5rem" />
+    <app-summary-card title="Income" [amount]="totals().income" color="blue" />
+    <app-summary-card title="Expense" [amount]="totals().expense" color="red" />
+    <p>
+      Top Category - <span> {{ topCategory() }} </span>
+    </p>
+  </div>
+</div>
+
+<p>Average Expense: {{ averageExpense() }}</p>
+
+<p>bigger conscutive streak of months overspending: {{ overspending().longestStreak }}</p>
+
+<app-category-trend />
+
+@if (worsthMonth() !== null) {
+  <p>
+    The worst month was {{ worsthMonth()!.month }} with an amount of {{ worsthMonth()!.balance }}
+  </p>
+}
+<h3>Expenses by month on: {{ category() }}</h3>
+@for (item of categoryExpenseTrend(); track item.month) {
+  <p>month: {{ item.month }} amount: {{ item.amount }}</p>
+}
+
+<div>
+  <h2>Montly totals</h2>
+  @for (item of monthlyTotalsList(); track item.month) {
+    <div>
+      <strong>{{ item.month }}</strong>
+      → Income: {{ item.totalIncome }} | Expense: {{ item.totalExpense }}
+    </div>
+  }
+</div>
+<section>
+  <h2>Trend</h2>
+  @for (month of trend(); track month) {
+    <p>Month: {{ month.month }}</p>
+    <ul>
+      <li>Income:{{ month.income }}, expense: {{ month.expense }}</li>
+      <li>Balance: {{ month.balance }}</li>
+    </ul>
+  }
+</section>
