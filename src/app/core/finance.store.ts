@@ -1,6 +1,11 @@
 import { computed, inject, Injectable } from '@angular/core';
 import { DataService } from './data.service';
-import { MonthlyTotals, OverspendingMonth, Transaction } from '../models/transaction.model';
+import {
+  CreateTransactionDto,
+  MonthlyTotals,
+  OverspendingMonth,
+  Transaction,
+} from '../models/transaction.model';
 import { getLastMonths, timelineGenerator, toMonthKey } from '../utils/dateConverter';
 
 @Injectable({
@@ -10,6 +15,12 @@ export class FinanceStore {
   private data = inject(DataService);
 
   transactions = this.data.transactions;
+
+  // ===== transaction operations ====
+  addTransaction = (transaction: CreateTransactionDto) => {
+    console.log('adding transaction', transaction);
+    return true;
+  };
 
   // ===== CORE METRICS =====
   totalBalance = computed(() => {

@@ -15,7 +15,7 @@ export class DataService {
     },
     {
       id: 2,
-      amount: 1200,
+      amount: 7200,
       type: 'income',
       category: 'other',
       date: new Date('2026-04-01'),
@@ -49,7 +49,7 @@ export class DataService {
       date: new Date('2026-03-01'),
     },
     {
-      id: 2,
+      id: 7,
       amount: 1200,
       type: 'income',
       category: 'other',

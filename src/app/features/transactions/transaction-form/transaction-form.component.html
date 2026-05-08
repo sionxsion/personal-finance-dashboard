@@ -1,1 +1,106 @@
-<p>transaction-form.component works!</p>
+<div class="max-w-xl mx-auto p-6 bg-white shadow-md rounded-lg border border-gray-200">
+  <p>Form Status: {{ transactionForm.status }}</p>
+  <form
+    [formGroup]="transactionForm"
+    (ngSubmit)="onSubmitTransaction()"
+    class="grid grid-cols-2 gap-6"
+  >
+    <!-- Type Field -->
+    <div class="flex flex-col">
+      <label for="type" class="text-sm font-semibold mb-1 text-gray-700">Type</label>
+      <select
+        id="type"
+        type="text"
+        formControlName="type"
+        class="border border-gray-300 rounded-md p-2 focus:ring-2 focus:ring-blue-500 outline-none transition-all"
+        required
+        [class.border-red-500]="type?.invalid && type?.touched"
+      >
+        <option value="income">Income</option>
+        <option value="expense">Expense</option>
+      </select>
+      @if (type && type.invalid && (type.dirty || type.touched)) {
+        @if (type.hasError('required')) {
+          <p style="color: red">Type is required</p>
+        }
+      }
+    </div>
+
+    <!-- Amount Field -->
+    <div class="flex flex-col">
+      <label for="amount" class="text-sm font-semibold mb-1 text-gray-700">Amount</label>
+      <input
+        id="amount"
+        type="number"
+        formControlName="amount"
+        class="border border-gray-300 rounded-md p-2 focus:ring-2 focus:ring-blue-500 outline-none transition-all"
+        required
+        [class.border-red-500]="amount?.invalid && amount?.touched"
+      />
+      @if (amount && amount.invalid && (amount.dirty || amount.touched)) {
+        @if (amount.hasError('required')) {
+          <p style="color: red">Amount is required</p>
+        }
+        @if (amount.hasError('min')) {
+          <p style="color: red">Amount must be bigger than 0</p>
+        }
+      }
+    </div>
+
+    <!-- Category Field -->
+    <div class="flex flex-col">
+      <label for="category" class="text-sm font-semibold mb-1 text-gray-700">Category</label>
+      <input
+        id="category"
+        type="text"
+        formControlName="category"
+        class="border border-gray-300 rounded-md p-2 focus:ring-2 focus:ring-blue-500 outline-none transition-all"
+        [class.border-red-500]="category?.invalid && category?.touched"
+      />
+      @if (category && category.invalid && (category.dirty || category.touched)) {
+        @if (category.hasError('required')) {
+          <p style="color: red">Category is required</p>
+        }
+        @if (category.hasError('minlength')) {
+          <p style="color: red">Category needs at least 2 characters</p>
+        }
+      }
+    </div>
+
+    <!-- Date Field -->
+    <div class="flex flex-col">
+      <label for="date" class="text-sm font-semibold mb-1 text-gray-700">Date</label>
+      <input
+        id="date"
+        type="date"
+        formControlName="date"
+        class="border border-gray-300 rounded-md p-2 focus:ring-2 focus:ring-blue-500 outline-none transition-all"
+        [class.border-red-500]="date?.invalid && date?.touched"
+      />
+      @if (date && date.invalid && (date.dirty || date.touched)) {
+        @if (date.hasError('required')) {
+          <p style="color: red">date is required</p>
+        }
+      }
+    </div>
+
+    @if (isSubmited()) {
+      <div
+        class="col-span-2 flex justify-center mt-4"
+        style="color: green; background-color: aquamarine; padding-block: 0.5rem"
+      >
+        Submited Successfully!!
+      </div>
+    }
+    <!-- Submit Button (Spans 2 columns and centered) -->
+    <div class="col-span-2 flex justify-center mt-4">
+      <button
+        type="submit"
+        [disabled]="!transactionForm.valid"
+        class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-6 rounded-lg shadow-md transition-all transform active:scale-95"
+      >
+        Create new transaction
+      </button>
+    </div>
+  </form>
+</div>

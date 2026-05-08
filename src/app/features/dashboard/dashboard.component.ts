@@ -3,10 +3,16 @@ import { FinanceStore } from '../../core/finance.store';
 import { CategoryTrendComponent } from '../category-trend/category-trend.component';
 import { BalanceCardComponent } from '../BalanceCard/balance-card.component';
 import { SummaryCardComponent } from '../summary-card/summary-card.component';
+import { TransactionFormComponent } from '../transactions/transaction-form/transaction-form.component';
 
 @Component({
   selector: 'app-dashboard',
-  imports: [CategoryTrendComponent, BalanceCardComponent, SummaryCardComponent],
+  imports: [
+    CategoryTrendComponent,
+    BalanceCardComponent,
+    SummaryCardComponent,
+    TransactionFormComponent,
+  ],
   templateUrl: './dashboard.component.html',
   styleUrl: './dashboard.component.css',
 })
