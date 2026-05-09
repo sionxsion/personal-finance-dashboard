@@ -50,19 +50,20 @@
     <!-- Category Field -->
     <div class="flex flex-col">
       <label for="category" class="text-sm font-semibold mb-1 text-gray-700">Category</label>
-      <input
-        id="category"
-        type="text"
+      <select
         formControlName="category"
         class="border border-gray-300 rounded-md p-2 focus:ring-2 focus:ring-blue-500 outline-none transition-all"
         [class.border-red-500]="category?.invalid && category?.touched"
-      />
+      >
+        @for (category of categories; track category) {
+          <option [value]="category">
+            {{ category }}
+          </option>
+        }
+      </select>
       @if (category && category.invalid && (category.dirty || category.touched)) {
         @if (category.hasError('required')) {
           <p style="color: red">Category is required</p>
-        }
-        @if (category.hasError('minlength')) {
-          <p style="color: red">Category needs at least 2 characters</p>
         }
       }
     </div>
@@ -84,7 +85,7 @@
       }
     </div>
 
-    @if (isSubmited()) {
+    @if (isSubmitted()) {
       <div
         class="col-span-2 flex justify-center mt-4"
         style="color: green; background-color: aquamarine; padding-block: 0.5rem"

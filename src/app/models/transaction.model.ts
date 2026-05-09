@@ -34,6 +34,6 @@ export type OverspendingMonth = {
 export type CreateTransactionDto = {
   amount: number;
   type: 'income' | 'expense';
-  category: string;
+  category: Category;
   date: string;
 };

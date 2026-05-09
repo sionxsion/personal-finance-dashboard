@@ -1,7 +1,7 @@
-import { Component, inject, signal } from '@angular/core';
+import { Component, computed, inject, signal } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { FinanceStore } from '../../../core/finance.store';
-import { CreateTransactionDto, Transaction } from '../../../models/transaction.model';
+import { Category, CreateTransactionDto, Transaction } from '../../../models/transaction.model';
 
 @Component({
   selector: 'app-transaction-form',
@@ -12,8 +12,9 @@ import { CreateTransactionDto, Transaction } from '../../../models/transaction.m
 export class TransactionFormComponent {
   private store = inject(FinanceStore);
 
-  isSubmited = signal<boolean>(false);
+  isSubmitted = signal<boolean>(false);
   isSubmitting = signal<boolean>(false);
+  categories: Category[] = ['food', 'rent', 'transport', 'tech', 'leisure', 'other'];
 
   transactionForm = new FormGroup({
     type: new FormControl<'income' | 'expense'>('income', {
@@ -24,9 +25,9 @@ export class TransactionFormComponent {
       nonNullable: true,
       validators: [Validators.required, Validators.min(1)],
     }),
-    category: new FormControl<string>('', {
+    category: new FormControl<Category>('food', {
       nonNullable: true,
-      validators: [Validators.required, Validators.minLength(2)],
+      validators: [Validators.required],
     }),
     date: new FormControl<string>('', {
       nonNullable: true,
@@ -65,13 +66,13 @@ export class TransactionFormComponent {
     const isSuccessfull = this.store.addTransaction(newTransaction);
 
     if (isSuccessfull) {
-      this.isSubmited.set(true);
-      setTimeout(() => this.isSubmited.set(false), 1000);
+      this.isSubmitted.set(true);
+      setTimeout(() => this.isSubmitted.set(false), 1000);
 
       this.transactionForm.reset({
         type: 'income',
         amount: 0,
-        category: '',
+        category: 'food',
         date: '',
       });
     }

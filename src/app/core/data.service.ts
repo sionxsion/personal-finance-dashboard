@@ -8,7 +8,7 @@ export class DataService {
   transactions = signal<Transaction[]>([
     {
       id: 1,
-      amount: 50,
+      amount: 15000,
       type: 'expense',
       category: 'food',
       date: new Date('2026-04-01'),

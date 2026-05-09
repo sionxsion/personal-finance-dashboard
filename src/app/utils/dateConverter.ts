@@ -22,7 +22,6 @@ export const timelineGenerator = (initialDate: Date): string[] => {
 };
 
 export const getLastMonths = (count: number) => {
-  const countIndex = count - 1;
   const currentDate = new Date();
 
   const fullTimeline: string[] = [];
@@ -35,4 +34,9 @@ export const getLastMonths = (count: number) => {
   }
 
   return fullTimeline;
+};
+
+export const stringToDate = (date: string): Date => {
+  const [year, month, day] = date.split('-');
+  return new Date(+year, +month - 1, +day);
 };

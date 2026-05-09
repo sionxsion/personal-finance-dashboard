@@ -31,10 +31,6 @@
   <app-transaction-form />
 </section>
 
-<p>Average Expense: {{ averageExpense() }}</p>
-
-<p>bigger conscutive streak of months overspending: {{ overspending().longestStreak }}</p>
-
 <app-category-trend />
 
 @if (worsthMonth() !== null) {
@@ -42,27 +38,3 @@
     The worst month was {{ worsthMonth()!.month }} with an amount of {{ worsthMonth()!.balance }}
   </p>
 }
-<h3>Expenses by month on: {{ category() }}</h3>
-@for (item of categoryExpenseTrend(); track item.month) {
-  <p>month: {{ item.month }} amount: {{ item.amount }}</p>
-}
-
-<div>
-  <h2>Montly totals</h2>
-  @for (item of monthlyTotalsList(); track item.month) {
-    <div>
-      <strong>{{ item.month }}</strong>
-      → Income: {{ item.totalIncome }} | Expense: {{ item.totalExpense }}
-    </div>
-  }
-</div>
-<section>
-  <h2>Trend</h2>
-  @for (month of trend(); track month) {
-    <p>Month: {{ month.month }}</p>
-    <ul>
-      <li>Income:{{ month.income }}, expense: {{ month.expense }}</li>
-      <li>Balance: {{ month.balance }}</li>
-    </ul>
-  }
-</section>

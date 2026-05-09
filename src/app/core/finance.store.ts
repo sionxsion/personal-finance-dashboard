@@ -6,7 +6,7 @@ import {
   OverspendingMonth,
   Transaction,
 } from '../models/transaction.model';
-import { getLastMonths, timelineGenerator, toMonthKey } from '../utils/dateConverter';
+import { getLastMonths, stringToDate, timelineGenerator, toMonthKey } from '../utils/dateConverter';
 
 @Injectable({
   providedIn: 'root',
@@ -17,10 +17,31 @@ export class FinanceStore {
   transactions = this.data.transactions;
 
   // ===== transaction operations ====
-  addTransaction = (transaction: CreateTransactionDto) => {
-    console.log('adding transaction', transaction);
+  addTransaction = (newTransaction: CreateTransactionDto) => {
+    const transactionDate = stringToDate(newTransaction.date);
+    const id = this.getMaxTransactionId() + 1;
+
+    console.log('DATE', transactionDate);
+
+    this.transactions.set([
+      ...this.transactions(),
+      {
+        id,
+        amount: newTransaction.amount,
+        category: newTransaction.category,
+        date: transactionDate,
+        type: newTransaction.type,
+      },
+    ]);
     return true;
   };
+
+  private getMaxTransactionId() {
+    const id = this.transactions().reduce((bigger: number, { id }) => {
+      return id > bigger ? id : bigger;
+    }, 0);
+    return id;
+  }
 
   // ===== CORE METRICS =====
   totalBalance = computed(() => {
