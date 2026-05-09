@@ -1,0 +1,63 @@
+/* The main container "The Square" */
+#data-charts {
+  max-width: 1200px; /* Limits width so it stays a neat square/rectangle */
+  margin: 40px auto; /* Centers the whole section on the page */
+  padding: 30px;
+  background-color: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1); /* Soft shadow for depth */
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* Centered Title */
+#data-charts h3 {
+  text-align: center;
+  margin-bottom: 30px;
+  color: #333;
+  font-size: 1.5rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+/* The Grid Logic */
+.grid-container {
+  display: grid;
+  /* Correct syntax for 3 equal columns */
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px; /* Space between charts */
+  justify-items: center; /* Centers items horizontally in cell */
+}
+
+/* Styling the charts themselves */
+app-category-expense-chart {
+  width: 100%;
+  min-height: 250px; /* Adjust based on your chart height */
+  background: #f8f9fa;
+  border: 1px solid #eee;
+  border-radius: 8px;
+  padding: 15px;
+  transition: transform 0.2s ease;
+}
+
+/* Hover effect for interactivity */
+app-category-expense-chart:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+}
+
+/* Responsive: 2 columns on tablets, 1 column on phones */
+@media (max-width: 992px) {
+  .grid-container {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 600px) {
+  .grid-container {
+    grid-template-columns: 1fr;
+  }
+  #data-charts {
+    margin: 10px;
+    padding: 15px;
+  }
+}
