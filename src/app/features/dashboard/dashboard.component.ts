@@ -4,7 +4,7 @@ import { CategoryTrendComponent } from '../category-trend/category-trend.compone
 import { BalanceCardComponent } from '../BalanceCard/balance-card.component';
 import { SummaryCardComponent } from '../summary-card/summary-card.component';
 import { TransactionFormComponent } from '../transactions/transaction-form/transaction-form.component';
-import { CategoryExpenseChart } from '../charts/category-expense-chart/category-expense-chart.component';
+import { CategoryExpenseChartComponent } from '../charts/category-expense-chart/category-expense-chart.component';
 
 @Component({
   selector: 'app-dashboard',
@@ -13,7 +13,7 @@ import { CategoryExpenseChart } from '../charts/category-expense-chart/category-
     BalanceCardComponent,
     SummaryCardComponent,
     TransactionFormComponent,
-    CategoryExpenseChart,
+    CategoryExpenseChartComponent,
   ],
   templateUrl: './dashboard.component.html',
   styleUrl: './dashboard.component.css',

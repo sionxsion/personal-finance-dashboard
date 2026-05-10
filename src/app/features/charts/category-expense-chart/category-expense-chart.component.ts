@@ -1,6 +1,6 @@
 import { Component, computed, inject } from '@angular/core';
 import { BaseChartDirective } from 'ng2-charts';
-import { ChartConfiguration, ChartType } from 'chart.js';
+import { ChartType } from 'chart.js';
 
 import { FinanceStore } from '../../../core/finance.store';
 
@@ -10,7 +10,7 @@ import { FinanceStore } from '../../../core/finance.store';
   templateUrl: './category-expense-chart.component.html',
   styleUrl: './category-expense-chart.component.css',
 })
-export class CategoryExpenseChart {
+export class CategoryExpenseChartComponent {
   store = inject(FinanceStore);
   chartType: ChartType = 'doughnut';
   chartData = computed(() => {
