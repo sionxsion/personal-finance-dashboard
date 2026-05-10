@@ -4,7 +4,8 @@ import { CategoryTrendComponent } from '../category-trend/category-trend.compone
 import { BalanceCardComponent } from '../BalanceCard/balance-card.component';
 import { SummaryCardComponent } from '../summary-card/summary-card.component';
 import { TransactionFormComponent } from '../transactions/transaction-form/transaction-form.component';
-import { CategoryExpenseChartComponent } from '../charts/category-expense-chart/category-expense-chart.component';
+import { ChartCardComponent } from '../../shared/components/chart-card/chart-card.component';
+import { ChartConfiguration } from 'chart.js';
 
 @Component({
   selector: 'app-dashboard',
@@ -13,7 +14,7 @@ import { CategoryExpenseChartComponent } from '../charts/category-expense-chart/
     BalanceCardComponent,
     SummaryCardComponent,
     TransactionFormComponent,
-    CategoryExpenseChartComponent,
+    ChartCardComponent,
   ],
   templateUrl: './dashboard.component.html',
   styleUrl: './dashboard.component.css',
@@ -26,12 +27,73 @@ export class DashboardComponent {
   totals = this.store.totals;
   totalAmount = computed(() => this.totals().income + this.totals().expense);
   topCategory = this.store.topCategory;
-  averageExpense = this.store.averageExpense;
-  monthlyTotalsList = this.store.monthlyTotalsList;
-  comparison = this.store.monthlyComparison;
-  trend = this.store.lastYearTrend;
-  overspending = this.store.overspendingStreak;
-  worsthMonth = this.store.worstMonth;
-  categoryTrend = computed(() => this.store.categoryTrend(this.category()));
-  categoryExpenseTrend = computed(() => this.store.categoryExpenseTrend(this.category()));
+  doughnutOptions: ChartConfiguration<'doughnut'>['options'] = {
+    responsive: true,
+    maintainAspectRatio: false,
+    plugins: {
+      legend: {
+        position: 'bottom',
+      },
+    },
+  };
+  lineOptions: ChartConfiguration<'line'>['options'] = {
+    responsive: true,
+    maintainAspectRatio: false,
+  };
+  expenses = computed(() => {
+    const data = this.store.expensesByCategory();
+    this.lastYearTrend();
+    return {
+      labels: Object.keys(data),
+      datasets: [
+        {
+          data: Object.values(data),
+        },
+      ],
+    };
+  });
+  lastYearTrend = computed(() => {
+    const data = this.store.lastYearTrend();
+
+    return {
+      labels: data.map((item) => item.month),
+      datasets: [
+        {
+          label: 'Income',
+          data: data.map((item) => item.income),
+        },
+        {
+          label: 'Expense',
+          data: data.map((item) => item.expense),
+        },
+        {
+          label: 'Month Balance',
+          data: data.map((item) => item.balance),
+        },
+      ],
+    };
+  });
+  incomeExpense = computed(() => {
+    const data = this.store.monthlyTotalsList();
+
+    return {
+      labels: data.map((item) => item.month),
+      datasets: [
+        {
+          label: 'Income',
+          data: data.map((item) => item.totalIncome),
+          backgroundColor: 'rgb(38, 82, 227)',
+          borderColor: '#1667ca',
+          tension: 0.3,
+        },
+        {
+          label: 'Expense',
+          data: data.map((item) => item.totalExpense),
+          backgroundColor: '#ef4444',
+          borderColor: '#dc2626',
+          tension: 0.3,
+        },
+      ],
+    };
+  });
 }

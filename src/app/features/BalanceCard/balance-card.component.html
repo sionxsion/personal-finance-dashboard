@@ -1,35 +1,27 @@
-<div>
-  <div class="px-6 py-4">
-    <p class="font-bold text-xl mb-2">{{ title() }}</p>
-    <p class="font-bold text-xl mb-2">{{ amount() }}</p>
+<div class="card-body">
+  <p class="card-title">{{ title() }}</p>
+  <p class="card-amount">{{ amount() }}</p>
 
-    <div style="display: flex; align-items: center; width: 100%; height: 2rem; gap: 10px">
-      <div>Negative</div>
+  <!-- Labels above the bar -->
+  <div class="progress-labels">
+    <span>Negative</span>
+    <span class="label-zero">0</span>
+    <span>Positive</span>
+  </div>
 
-      <!-- Left Container (Negative) -->
-      <div
-        style="flex: 1; display: flex; justify-content: flex-end; height: 1rem; background: #f0f0f0"
-      >
-        <div style="background: red; height: 1rem" [style.width.%]="negativeAmount()"></div>
-      </div>
+  <!-- The Unified Bar -->
+  <div class="progress-track">
+    <!-- Center Marker Line -->
+    <div class="center-divider"></div>
 
-      <!-- Center Marker -->
-      <div style="font-weight: bold">0</div>
+    <!-- Left Side (Negative) -->
+    <div class="track-half negative-side">
+      <div class="fill-negative" [style.width.%]="negativeAmount()"></div>
+    </div>
 
-      <!-- Right Container (Positive) -->
-      <div
-        style="
-          flex: 1;
-          display: flex;
-          justify-content: flex-start;
-          height: 1rem;
-          background: #f0f0f0;
-        "
-      >
-        <div style="background: blue; height: 1rem" [style.width.%]="positiveAmount()"></div>
-      </div>
-
-      <div>Positive</div>
+    <!-- Right Side (Positive) -->
+    <div class="track-half positive-side">
+      <div class="fill-positive" [style.width.%]="positiveAmount()"></div>
     </div>
   </div>
 </div>

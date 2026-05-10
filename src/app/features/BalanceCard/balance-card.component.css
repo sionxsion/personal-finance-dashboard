@@ -1,0 +1,86 @@
+/* Container for the whole card content */
+.card-body {
+  padding: 1rem 1.5rem;
+}
+
+.card-title {
+  font-weight: 700;
+  font-size: 1.25rem;
+  margin-bottom: 0.25rem;
+}
+
+.card-amount {
+  font-weight: 700;
+  font-size: 1.25rem;
+  margin-bottom: 1rem;
+}
+
+/* Label Layout (Negative, 0, Positive) */
+.progress-labels {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  width: 100%;
+  font-size: 0.875rem;
+  font-weight: 600;
+  margin-bottom: 4px; /* Space between text and bar */
+}
+
+.label-zero {
+  transform: translateX(50%); /* Centers the '0' exactly on the middle line */
+  width: 0;
+  display: flex;
+  justify-content: center;
+}
+
+/* The Bar Container */
+.progress-track {
+  display: flex;
+  width: 100%;
+  height: 1rem;
+  background-color: #f0f0f0;
+  border-radius: 4px;
+  overflow: hidden;
+  position: relative;
+}
+
+/* Individual Sides */
+.track-half {
+  flex: 1;
+  display: flex;
+  height: 100%;
+}
+
+/* Negative bar grows from right to left */
+.negative-side {
+  justify-content: flex-end;
+}
+
+/* Positive bar grows from left to right */
+.positive-side {
+  justify-content: flex-start;
+}
+
+/* The colored fills */
+.fill-negative {
+  background-color: #ef4444; /* Red */
+  height: 100%;
+  transition: width 0.3s ease;
+}
+
+.fill-positive {
+  background-color: #3b82f6; /* Blue */
+  height: 100%;
+  transition: width 0.3s ease;
+}
+
+/* The vertical divider line (|) */
+.center-divider {
+  position: absolute;
+  left: 50%;
+  top: 0;
+  width: 2px;
+  height: 100%;
+  background-color: #333;
+  z-index: 2;
+}

@@ -1,105 +1,81 @@
-<div class="max-w-xl mx-auto p-6 bg-white shadow-md rounded-lg border border-gray-200">
-  <p>Form Status: {{ transactionForm.status }}</p>
-  <form
-    [formGroup]="transactionForm"
-    (ngSubmit)="onSubmitTransaction()"
-    class="grid grid-cols-2 gap-6"
-  >
+<div class="form-card">
+  <h2 class="form-status">Transaction</h2>
+
+  <form [formGroup]="transactionForm" (ngSubmit)="onSubmitTransaction()" class="transaction-form">
     <!-- Type Field -->
-    <div class="flex flex-col">
-      <label for="type" class="text-sm font-semibold mb-1 text-gray-700">Type</label>
+    <div class="form-group">
+      <label for="type" class="form-label">Type</label>
       <select
         id="type"
-        type="text"
         formControlName="type"
-        class="border border-gray-300 rounded-md p-2 focus:ring-2 focus:ring-blue-500 outline-none transition-all"
-        required
-        [class.border-red-500]="type?.invalid && type?.touched"
+        class="form-input"
+        [class.input-error]="type?.invalid && type?.touched"
       >
         <option value="income">Income</option>
         <option value="expense">Expense</option>
       </select>
-      @if (type && type.invalid && (type.dirty || type.touched)) {
-        @if (type.hasError('required')) {
-          <p style="color: red">Type is required</p>
-        }
+      @if (type?.invalid && (type?.dirty || type?.touched)) {
+        <p class="error-text">Type is required</p>
       }
     </div>
 
     <!-- Amount Field -->
-    <div class="flex flex-col">
-      <label for="amount" class="text-sm font-semibold mb-1 text-gray-700">Amount</label>
+    <div class="form-group">
+      <label for="amount" class="form-label">Amount</label>
       <input
         id="amount"
         type="number"
         formControlName="amount"
-        class="border border-gray-300 rounded-md p-2 focus:ring-2 focus:ring-blue-500 outline-none transition-all"
-        required
-        [class.border-red-500]="amount?.invalid && amount?.touched"
+        class="form-input"
+        [class.input-error]="amount?.invalid && amount?.touched"
       />
-      @if (amount && amount.invalid && (amount.dirty || amount.touched)) {
-        @if (amount.hasError('required')) {
-          <p style="color: red">Amount is required</p>
-        }
-        @if (amount.hasError('min')) {
-          <p style="color: red">Amount must be bigger than 0</p>
-        }
+      @if (amount?.invalid && (amount?.dirty || amount?.touched)) {
+        <p class="error-text">
+          {{ amount?.hasError('required') ? 'Amount is required' : 'Amount must be bigger than 0' }}
+        </p>
       }
     </div>
 
     <!-- Category Field -->
-    <div class="flex flex-col">
-      <label for="category" class="text-sm font-semibold mb-1 text-gray-700">Category</label>
+    <div class="form-group">
+      <label for="category" class="form-label">Category</label>
       <select
         formControlName="category"
-        class="border border-gray-300 rounded-md p-2 focus:ring-2 focus:ring-blue-500 outline-none transition-all"
-        [class.border-red-500]="category?.invalid && category?.touched"
+        class="form-input"
+        [class.input-error]="category?.invalid && category?.touched"
       >
-        @for (category of categories; track category) {
-          <option [value]="category">
-            {{ category }}
-          </option>
+        @for (cat of categories; track cat) {
+          <option [value]="cat">{{ cat }}</option>
         }
       </select>
-      @if (category && category.invalid && (category.dirty || category.touched)) {
-        @if (category.hasError('required')) {
-          <p style="color: red">Category is required</p>
-        }
+      @if (category?.invalid && (category?.dirty || category?.touched)) {
+        <p class="error-text">Category is required</p>
       }
     </div>
 
     <!-- Date Field -->
-    <div class="flex flex-col">
-      <label for="date" class="text-sm font-semibold mb-1 text-gray-700">Date</label>
+    <div class="form-group">
+      <label for="date" class="form-label">Date</label>
       <input
         id="date"
         type="date"
         formControlName="date"
-        class="border border-gray-300 rounded-md p-2 focus:ring-2 focus:ring-blue-500 outline-none transition-all"
-        [class.border-red-500]="date?.invalid && date?.touched"
+        class="form-input"
+        [class.input-error]="date?.invalid && date?.touched"
       />
-      @if (date && date.invalid && (date.dirty || date.touched)) {
-        @if (date.hasError('required')) {
-          <p style="color: red">date is required</p>
-        }
+      @if (date?.invalid && (date?.dirty || date?.touched)) {
+        <p class="error-text">Date is required</p>
       }
     </div>
 
+    <!-- Success Message -->
     @if (isSubmitted()) {
-      <div
-        class="col-span-2 flex justify-center mt-4"
-        style="color: green; background-color: aquamarine; padding-block: 0.5rem"
-      >
-        Submited Successfully!!
-      </div>
+      <div class="success-banner">Submitted Successfully!!</div>
     }
-    <!-- Submit Button (Spans 2 columns and centered) -->
-    <div class="col-span-2 flex justify-center mt-4">
-      <button
-        type="submit"
-        [disabled]="!transactionForm.valid"
-        class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-6 rounded-lg shadow-md transition-all transform active:scale-95"
-      >
+
+    <!-- Submit Button -->
+    <div class="form-actions">
+      <button type="submit" [disabled]="transactionForm.invalid" class="btn-submit">
         Create new transaction
       </button>
     </div>

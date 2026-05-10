@@ -26,7 +26,7 @@ export const getLastMonths = (count: number) => {
 
   const fullTimeline: string[] = [];
 
-  for (let i = count; i >= 0; i--) {
+  for (let i = count - 1; i >= 0; i--) {
     const d = new Date(currentDate);
     d.setMonth(d.getMonth() - i);
     const month = toMonthKey(d);

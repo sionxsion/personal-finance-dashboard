@@ -1,47 +1,48 @@
-<div
-  style="
-    display: flex;
-    justify-content: center;
-    margin-bottom: 1rem;
-    padding-block: 1rem;
-    background-color: azure;
-  "
->
-  <h1 style="font-size: larger">Finance Dashboard</h1>
+<div class="title-header">
+  <h1>Finance Dashboard</h1>
 </div>
-
-<div style="display: flex; gap: 1rem; padding: 1rem">
-  <app-balance-card
-    style="width: 50%; background-color: antiquewhite; border-radius: 0.6rem"
-    title="Total balance"
-    [amount]="totalBalance()"
-    [totalAmount]="totalAmount()"
-  />
-  <div style="width: 50%; padding: 1rem; background-color: antiquewhite; border-radius: 0.6rem">
-    <h1>Summary</h1>
-    <hr style="margin-block: 0.5rem" />
-    <app-summary-card title="Income" [amount]="totals().income" color="blue" />
-    <app-summary-card title="Expense" [amount]="totals().expense" color="red" />
-    <p>
-      Top Category - <span> {{ topCategory() }} </span>
-    </p>
+<section class="section">
+  <div class="flex-container">
+    <div class="flex-grow">
+      <app-transaction-form />
+    </div>
+    <div class="flex-container flex-grow flex-column">
+      <app-balance-card
+        class="top-item"
+        title="Total balance"
+        [amount]="totalBalance()"
+        [totalAmount]="totalAmount()"
+      />
+      <div class="top-item">
+        <h1>Summary</h1>
+        <hr style="margin-block: 0.5rem" />
+        <app-summary-card title="Income" [amount]="totals().income" color="blue" />
+        <app-summary-card title="Expense" [amount]="totals().expense" color="red" />
+        <p>
+          Top Category - <span> {{ topCategory() }} </span>
+        </p>
+      </div>
+    </div>
   </div>
-</div>
-<section id="form-section">
-  <app-transaction-form />
 </section>
 
-<section id="data-charts">
+<section class="section">
   <h3>Data charts</h3>
   <div class="grid-container">
-    <app-category-expense-chart />
+    <app-chart-card
+      title="Expenses By Category"
+      chartType="doughnut"
+      [chartData]="expenses()"
+      [options]="doughnutOptions"
+    />
+    <app-chart-card
+      title="Trend Last Year"
+      chartType="line"
+      [chartData]="lastYearTrend()"
+      [options]="lineOptions"
+    />
+    <app-chart-card title="Income vs Expense" chartType="bar" [chartData]="incomeExpense()" />
   </div>
 </section>
 
 <app-category-trend />
-
-@if (worsthMonth() !== null) {
-  <p>
-    The worst month was {{ worsthMonth()!.month }} with an amount of {{ worsthMonth()!.balance }}
-  </p>
-}

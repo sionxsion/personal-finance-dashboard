@@ -1,0 +1,127 @@
+/* Container styling */
+.form-card {
+  max-width: 32rem;
+  margin-left: auto;
+  margin-right: auto;
+  padding: 1.5rem;
+  background-color: #ffffff;
+  border: 1px solid #e5e7eb;
+  border-radius: 0.5rem;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+}
+
+.form-status {
+  margin-bottom: 1rem;
+  color: #6b7280;
+  text-align: center;
+}
+
+/* Grid Layout */
+.transaction-form {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1.5rem;
+}
+
+/* Individual Form Groups */
+.form-group {
+  display: flex;
+  flex-direction: column;
+}
+
+.form-label {
+  font-size: 0.875rem;
+  font-weight: 600;
+  margin-bottom: 0.25rem;
+  color: #374151;
+}
+
+/* Inputs and Selects */
+.form-input {
+  border: 1px solid #d1d5db;
+  border-radius: 0.375rem;
+  padding: 0.5rem;
+  outline: none;
+  transition: all 0.2s;
+}
+
+.form-input:focus {
+  outline: none;
+  border-color: #3b82f6;
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.2);
+}
+
+/* Validation Styles */
+.input-error {
+  border-color: #ef4444 !important;
+}
+
+.error-text {
+  color: #ef4444;
+  font-size: 0.75rem;
+  margin-top: 0.25rem;
+}
+
+.success-banner {
+  grid-column: span 2;
+  text-align: center;
+  padding: 0.5rem;
+  background-color: #d1fae5;
+  color: #065f46;
+  border-radius: 0.375rem;
+  margin-top: 1rem;
+}
+
+/* Button Styling */
+.form-actions {
+  grid-column: span 2;
+  display: flex;
+  justify-content: center;
+  margin-top: 1rem;
+}
+
+.btn-submit {
+  background-color: #2563eb;
+  color: white;
+  font-weight: 700;
+  padding: 0.5rem 1.5rem;
+  border-radius: 0.5rem;
+  border: none;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.btn-submit:hover:not(:disabled) {
+  background-color: #1d4ed8;
+  transform: translateY(-1px);
+}
+
+.btn-submit:disabled {
+  background-color: #9ca3af;
+  cursor: not-allowed;
+  opacity: 0.7;
+}
+
+.btn-submit:active:not(:disabled) {
+  transform: scale(0.95);
+}
+
+@media (width <= 768px) {
+  .transaction-form {
+    /* Switch to one column */
+    grid-template-columns: 1fr;
+    gap: 1rem; /* Slightly reduce gap for smaller screens */
+  }
+
+  /* Ensure the elements that were spanning 2 columns now only span 1 */
+  .success-banner,
+  .form-actions {
+    grid-column: span 1;
+  }
+
+  /* Optional: adjust the card padding so it doesn't feel too cramped on phones */
+  .form-card {
+    padding: 1rem;
+    margin: 0.5rem; /* Adds a small margin around the card on mobile */
+  }
+}
