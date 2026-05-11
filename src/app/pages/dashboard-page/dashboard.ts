@@ -5,11 +5,11 @@ import { BalanceCardComponent } from '../../features/BalanceCard/balance-card.co
 import { TransactionFormComponent } from '../../features/transactions/transaction-form/transaction-form.component';
 import { ChartCardComponent } from '../../shared/components/chart-card/chart-card.component';
 import {
-  doughnutOptionsUtil,
-  expensesByCategoryChartDataUtil,
-  incomeVsExpenseChartDataUtil,
-  lastYearTrendChartDataUtil,
-  lineOptionsUtil,
+  DOUGHNUT_CHART_OPTIONS,
+  mapExpensesByCategoryChartData,
+  mapIncomeVsExpenseChartData,
+  mapLastYearTrendChartData,
+  LINE_CHART_OPTIONS,
 } from '../../utils/chartMappers';
 
 @Component({
@@ -31,22 +31,22 @@ export class Dashboard {
   totalAmount = computed(() => this.totals().income + this.totals().expense);
   topCategory = this.store.topCategory;
 
-  doughnutOptions = doughnutOptionsUtil;
-  lineOptions = lineOptionsUtil;
+  doughnutOptions = DOUGHNUT_CHART_OPTIONS;
+  lineOptions = LINE_CHART_OPTIONS;
 
   expensesByCategoryChartData = computed(() => {
     const data = this.store.expensesByCategory();
-    return expensesByCategoryChartDataUtil(data);
+    return mapExpensesByCategoryChartData(data);
   });
 
   lastYearTrendChartData = computed(() => {
     const data = this.store.lastYearTrend();
 
-    return lastYearTrendChartDataUtil(data);
+    return mapLastYearTrendChartData(data);
   });
 
   incomeVsExpenseChartData = computed(() => {
     const data = this.store.monthlyTotalsList();
-    return incomeVsExpenseChartDataUtil(data);
+    return mapIncomeVsExpenseChartData(data);
   });
 }

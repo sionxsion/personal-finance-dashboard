@@ -98,7 +98,7 @@ export class DataService {
       date: new Date('2025-08-01'),
     },
     {
-      id: 15,
+      id: 14,
       amount: 100,
       type: 'expense',
       category: 'transport',
@@ -222,6 +222,8 @@ export class DataService {
       type: 'expense',
       category: 'transport',
       date: new Date('2026-05-01'),
+      description:
+        'TESTING, TESTING TESTINGTE STIN GTESTING TESTINGTESTINGTESTINGTE STINGTESTING, TESTING',
     },
   ]);
 }

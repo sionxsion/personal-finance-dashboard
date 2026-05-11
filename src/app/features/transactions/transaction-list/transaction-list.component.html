@@ -1,1 +1,34 @@
-<p>transaction-list.component works!</p>
+<section class="transaction-section">
+  <h2 class="section-title">Transaction List</h2>
+
+  <div class="bank-grid">
+    @for (transaction of transactionsSorted(); track transaction.id) {
+      <div class="bank-card group" [class.income]="transaction.type === 'income'">
+        <div class="card-row-top">
+          <p class="bank-date">{{ transaction.date | date: 'dd-MM-yyyy' }}</p>
+          <div class="bank-actions">
+            <button class="icon-btn edit" title="Edit">✎</button>
+            <button class="icon-btn delete" (click)="onDelete(transaction.id)" title="Delete">
+              ✕
+            </button>
+          </div>
+        </div>
+
+        <div class="card-row-middle">
+          <h3 class="bank-category">{{ transaction.category }}</h3>
+          <span class="bank-amount">
+            {{ transaction.type === 'income' ? '+' : '-' }}${{ transaction.amount }}
+          </span>
+        </div>
+
+        @if (transaction.description) {
+          <div class="card-row-bottom">
+            <p class="bank-description">{{ transaction.description }}</p>
+          </div>
+        }
+      </div>
+    } @empty {
+      <div>Not Data Yet</div>
+    }
+  </div>
+</section>

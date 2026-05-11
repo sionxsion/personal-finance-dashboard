@@ -1,6 +1,6 @@
 import { ChartConfiguration } from 'chart.js';
 
-export const doughnutOptionsUtil: ChartConfiguration<'doughnut'>['options'] = {
+export const DOUGHNUT_CHART_OPTIONS: ChartConfiguration<'doughnut'>['options'] = {
   responsive: true,
   maintainAspectRatio: false,
   plugins: {
@@ -10,12 +10,12 @@ export const doughnutOptionsUtil: ChartConfiguration<'doughnut'>['options'] = {
   },
 };
 
-export const lineOptionsUtil: ChartConfiguration<'line'>['options'] = {
+export const LINE_CHART_OPTIONS: ChartConfiguration<'line'>['options'] = {
   responsive: true,
   maintainAspectRatio: false,
 };
 
-export const expensesByCategoryChartDataUtil = (data: Record<string, number>) => {
+export const mapExpensesByCategoryChartData = (data: Record<string, number>) => {
   return {
     labels: Object.keys(data),
     datasets: [
@@ -33,7 +33,7 @@ interface lastYearTrendDataInterface {
   balance: number;
 }
 
-export const lastYearTrendChartDataUtil = (data: lastYearTrendDataInterface[]) => {
+export const mapLastYearTrendChartData = (data: lastYearTrendDataInterface[]) => {
   return {
     labels: data.map((item) => item.month),
     datasets: [
@@ -59,7 +59,7 @@ interface IncomeExpenseData {
   month: string;
 }
 
-export const incomeVsExpenseChartDataUtil = (data: IncomeExpenseData[]) => {
+export const mapIncomeVsExpenseChartData = (data: IncomeExpenseData[]) => {
   return {
     labels: data.map((item) => item.month),
     datasets: [

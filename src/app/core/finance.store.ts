@@ -38,8 +38,8 @@ export class FinanceStore {
     this.transactions();
   };
 
-  removeTransaction = (id: number) => {
-    this.transactions.set(this.transactions().filter((t) => t.id != id));
+  deleteTransaction = (id: number) => {
+    this.transactions.update((transactions) => transactions.filter((t) => t.id !== id));
   };
 
   clearTransactions = () => {
