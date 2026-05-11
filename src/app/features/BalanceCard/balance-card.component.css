@@ -1,6 +1,43 @@
 /* Container for the whole card content */
-.card-body {
+.balance-card {
   padding: 1rem 1.5rem;
+}
+
+.balance-header {
+  display: flex;
+  justify-content: space-between;
+}
+
+/* The Remove Button Style */
+.btn-secondary-danger {
+  /* Colors */
+  font-size: small;
+  background-color: transparent;
+  color: #ef4444; /* Red */
+  border: 1px solid #fca5a5; /* Light red border */
+
+  /* Sizing & Font */
+  padding: 0.4rem 0.8rem;
+  font-size: 0.6rem;
+  font-weight: 600;
+  border-radius: 0.5rem;
+
+  /* Interaction */
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+  text-transform: uppercase;
+  letter-spacing: 0.025em;
+}
+
+.btn-secondary-danger:hover {
+  background-color: #fef2f2; /* Very light red background */
+  border-color: #ef4444;
+  box-shadow: 0 2px 4px rgba(239, 68, 68, 0.1);
+}
+
+.btn-secondary-danger:active {
+  transform: scale(0.95);
+  background-color: #fee2e2;
 }
 
 .card-title {

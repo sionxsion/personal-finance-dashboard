@@ -1,16 +1,23 @@
-<div class="trend-data">
-  <h2>
-    Expenses By month on the category:
-    <select #categorySelect (change)="onCategoryChange(categorySelect.value)">
-      @for (c of categories(); track c) {
-        <option [value]="c">{{ c }}</option>
-      }
-    </select>
-  </h2>
-  <div class="month-data">
-    @for (item of trend(); track item.month) {
-      <p>Month: {{ item.month }} - Expense: {{ item.amount }}</p>
-      <div class="month-data-bar" [style.width.px]="item.amount"></div>
-    }
+<div class="trend-section">
+  <div class="trend-header">
+    <h2 class="trend-title">Expenses by Category</h2>
+
+    <div class="filter-group">
+      <label for="cat-select" class="sr-only">Category</label>
+      <select
+        id="cat-select"
+        #categorySelect
+        class="category-select"
+        (change)="onCategoryChange(categorySelect.value)"
+      >
+        @for (c of categories(); track c) {
+          <option [value]="c">{{ c }}</option>
+        }
+      </select>
+    </div>
+  </div>
+
+  <div class="chart-container">
+    <app-chart-card title="Last 6 months" chartType="line" [chartData]="categoryTrend()" />
   </div>
 </div>

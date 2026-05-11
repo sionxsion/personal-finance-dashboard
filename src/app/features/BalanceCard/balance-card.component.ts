@@ -1,5 +1,6 @@
 import { CommonModule } from '@angular/common';
-import { Component, computed, input } from '@angular/core';
+import { Component, computed, inject, input } from '@angular/core';
+import { FinanceStore } from '../../core/finance.store';
 
 @Component({
   selector: 'app-balance-card',
@@ -8,6 +9,7 @@ import { Component, computed, input } from '@angular/core';
   styleUrl: './balance-card.component.css',
 })
 export class BalanceCardComponent {
+  private store = inject(FinanceStore);
   readonly title = input.required<string>();
   readonly amount = input.required<number>();
   readonly totalAmount = input.required<number>();
@@ -18,4 +20,8 @@ export class BalanceCardComponent {
   negativeAmount = computed<number>(() =>
     this.amount() < 0 ? (Math.abs(this.amount()) / this.totalAmount()) * 100 : 0,
   );
+
+  clearTransactions() {
+    this.store.clearTransactions();
+  }
 }

@@ -1,17 +1,17 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { SummaryCardComponentTs } from './summary-card.component.js';
+import { AppHeader } from './app-header';
 
-describe('SummaryCardComponentTs', () => {
-  let component: SummaryCardComponentTs;
-  let fixture: ComponentFixture<SummaryCardComponentTs>;
+describe('AppHeader', () => {
+  let component: AppHeader;
+  let fixture: ComponentFixture<AppHeader>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [SummaryCardComponentTs],
+      imports: [AppHeader],
     }).compileComponents();
 
-    fixture = TestBed.createComponent(SummaryCardComponentTs);
+    fixture = TestBed.createComponent(AppHeader);
     component = fixture.componentInstance;
     await fixture.whenStable();
   });

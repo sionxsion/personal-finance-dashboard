@@ -1,0 +1,30 @@
+header div {
+  text-align: center;
+  background-color: azure;
+  padding-block: 1rem;
+}
+
+header div h1 {
+  font-size: xx-large;
+  font-weight: 500;
+}
+
+header nav {
+  display: flex;
+  justify-content: space-around;
+  border-block: 1px solid black;
+}
+
+header nav a {
+  display: flex;
+  flex-grow: 1;
+  justify-content: center;
+  padding: 0.5rem;
+  background-color: beige;
+}
+
+header nav a:hover {
+  background-color: rgb(233, 252, 124);
+  border: 1px solid black;
+  font-weight: 600;
+}

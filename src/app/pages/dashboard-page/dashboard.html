@@ -1,0 +1,62 @@
+<section class="section">
+  <div class="flex-container">
+    <div class="flex-grow">
+      <app-transaction-form />
+    </div>
+    <div class="flex-container flex-grow flex-column">
+      <app-balance-card
+        class="top-item"
+        title="Total balance"
+        [amount]="totalBalance()"
+        [totalAmount]="totalAmount()"
+      />
+      <div class="top-item">
+        <h1>Summary</h1>
+        <hr class="margin-y-05" />
+        <p>
+          Income -
+          <span class="income"> {{ totals().income }} € </span>
+        </p>
+        <p>
+          Expense -
+          <span class="expense"> {{ totals().expense }} € </span>
+        </p>
+        <p>
+          Top Category - <span> {{ topCategory() }} </span>
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <h3>Data charts</h3>
+
+  @if (totalAmount() !== 0) {
+    <div class="grid-container">
+      <app-chart-card
+        title="Expenses By Category"
+        chartType="doughnut"
+        [chartData]="expensesByCategoryChartData()"
+        [options]="doughnutOptions"
+      />
+      <app-chart-card
+        title="Trend Last Year"
+        chartType="line"
+        [chartData]="lastYearTrendChartData()"
+        [options]="lineOptions"
+      />
+      <app-chart-card
+        title="Income vs Expense"
+        chartType="bar"
+        [chartData]="incomeVsExpenseChartData()"
+      />
+    </div>
+  } @else {
+    <div class="no-data">
+      <p>No data available yet</p>
+    </div>
+  }
+</section>
+
+<app-category-trend />

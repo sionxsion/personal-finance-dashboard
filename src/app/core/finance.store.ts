@@ -21,8 +21,6 @@ export class FinanceStore {
     const transactionDate = stringToDate(newTransaction.date);
     const id = this.getMaxTransactionId() + 1;
 
-    console.log('DATE', transactionDate);
-
     this.transactions.set([
       ...this.transactions(),
       {
@@ -34,6 +32,18 @@ export class FinanceStore {
       },
     ]);
     return true;
+  };
+
+  editTransaction = (transaction: Transaction) => {
+    this.transactions();
+  };
+
+  removeTransaction = (id: number) => {
+    this.transactions.set(this.transactions().filter((t) => t.id != id));
+  };
+
+  clearTransactions = () => {
+    this.transactions.set([]);
   };
 
   private getMaxTransactionId() {
@@ -115,7 +125,6 @@ export class FinanceStore {
 
     if (transactions.length === 0) return [];
 
-    // const firstDate = transactions.map((t) => t.date).sort((a, b) => a.getTime() - b.getTime())[0];
     let firstDate = transactions[0].date;
 
     for (const t of transactions) {

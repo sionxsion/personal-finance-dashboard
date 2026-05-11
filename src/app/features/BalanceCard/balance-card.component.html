@@ -1,5 +1,8 @@
-<div class="card-body">
-  <p class="card-title">{{ title() }}</p>
+<div class="balance-card">
+  <div class="balance-header">
+    <p class="card-title">{{ title() }}</p>
+    <button class="btn-secondary-danger" (click)="clearTransactions()">Remove All Data</button>
+  </div>
   <p class="card-amount">{{ amount() }}</p>
 
   <!-- Labels above the bar -->
