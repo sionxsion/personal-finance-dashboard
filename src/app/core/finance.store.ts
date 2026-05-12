@@ -17,6 +17,10 @@ export class FinanceStore {
   transactions = this.data.transactions;
 
   // ===== transaction operations ====
+  getTransactionById = (id: number) => {
+    return this.transactions().find((t) => t.id === id);
+  };
+
   addTransaction = (newTransaction: CreateTransactionDto) => {
     const transactionDate = stringToDate(newTransaction.date);
     const id = this.getMaxTransactionId() + 1;
@@ -36,8 +40,14 @@ export class FinanceStore {
   };
 
   editTransaction = (transaction: Transaction) => {
-    console.log(transaction);
-    this.transactions();
+    this.transactions.update((transactions) =>
+      transactions.map((t) => {
+        if (t.id === transaction.id) {
+          return { ...transaction };
+        }
+        return t;
+      }),
+    );
   };
 
   deleteTransaction = (id: number) => {

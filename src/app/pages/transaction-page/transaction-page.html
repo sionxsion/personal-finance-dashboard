@@ -1,4 +1,4 @@
 <section>
-  <h2>Edit transaction</h2>
-  <app-transaction-form />
+  <h2>Edit transaction {{ id }}</h2>
+  <app-transaction-form [transaction]="transaction()" />
 </section>

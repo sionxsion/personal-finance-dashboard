@@ -92,7 +92,11 @@
     <!-- Submit Button -->
     <div class="form-actions">
       <button type="submit" [disabled]="transactionForm.invalid" class="btn-submit">
-        Create new transaction
+        @if (this.transaction()) {
+          Edit transaction
+        } @else {
+          Create new transaction
+        }
       </button>
     </div>
   </form>

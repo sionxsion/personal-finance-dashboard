@@ -3,7 +3,7 @@ import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angula
 import { FinanceStore } from '../../../core/finance.store';
 import { Category, CreateTransactionDto, Transaction } from '../../../models/transaction.model';
 import { CommonModule } from '@angular/common';
-import { dateToString } from '../../../utils/dateConverter';
+import { dateToString, stringToDate } from '../../../utils/dateConverter';
 
 @Component({
   selector: 'app-transaction-form',
@@ -38,7 +38,7 @@ export class TransactionFormComponent {
   editType = this.transaction()?.type || 'income';
 
   transactionForm = new FormGroup({
-    type: new FormControl<'income' | 'expense'>(this.editType, {
+    type: new FormControl<'income' | 'expense'>('income', {
       nonNullable: true,
       validators: [Validators.required],
     }),
@@ -85,19 +85,23 @@ export class TransactionFormComponent {
 
     const { amount, type, category, date, description } = this.transactionForm.getRawValue();
 
-    const newTransaction: CreateTransactionDto = {
-      amount,
-      type,
-      category,
-      date,
-      description,
-    };
-
-    const isSuccessfull = this.store.addTransaction(newTransaction);
-
-    if (isSuccessfull) {
-      this.isSubmitted.set(true);
-      setTimeout(() => this.isSubmitted.set(false), 1000);
+    if (this.transaction()) {
+      this.store.editTransaction({
+        id: this.transaction()!.id,
+        type,
+        amount,
+        category,
+        date: stringToDate(date),
+        description,
+      });
+    } else {
+      this.store.addTransaction({
+        amount,
+        type,
+        category,
+        date,
+        description,
+      });
 
       this.transactionForm.reset({
         type: 'income',
@@ -107,6 +111,13 @@ export class TransactionFormComponent {
         description: '',
       });
     }
+
+    this.isSubmitted.set(true);
+
+    setTimeout(() => {
+      this.isSubmitted.set(false);
+    }, 1000);
+
     this.isSubmitting.set(false);
   };
 }
