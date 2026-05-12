@@ -11,6 +11,7 @@ import {
   mapLastYearTrendChartData,
   LINE_CHART_OPTIONS,
 } from '../../utils/chartMappers';
+import { NoDataComponent } from '../../shared/components/no-data/no-data.component';
 
 @Component({
   selector: 'app-dashboard',
@@ -19,6 +20,7 @@ import {
     BalanceCardComponent,
     TransactionFormComponent,
     ChartCardComponent,
+    NoDataComponent,
   ],
   templateUrl: './dashboard.html',
   styleUrl: './dashboard.css',

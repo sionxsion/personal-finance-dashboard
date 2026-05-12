@@ -222,8 +222,7 @@ export class DataService {
       type: 'expense',
       category: 'transport',
       date: new Date('2026-05-01'),
-      description:
-        'TESTING, TESTING TESTINGTE STIN GTESTING TESTINGTESTINGTESTINGTE STINGTESTING, TESTING',
+      description: 'TESTING, TESTING TESTINGTE STIN',
     },
   ]);
 }

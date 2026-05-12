@@ -55,13 +55,6 @@ export class FinanceStore {
     this.transactions.set([]);
   };
 
-  private getMaxTransactionId() {
-    const id = this.transactions().reduce((bigger: number, { id }) => {
-      return id > bigger ? id : bigger;
-    }, 0);
-    return id;
-  }
-
   // ===== CORE METRICS =====
   totalBalance = computed(() => {
     return this.transactions().reduce((acc, t) => {

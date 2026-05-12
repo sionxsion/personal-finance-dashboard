@@ -1,9 +1,10 @@
-import { Component, computed, effect, inject, input, signal } from '@angular/core';
+import { Component, effect, inject, input, signal } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { FinanceStore } from '../../../core/finance.store';
-import { Category, CreateTransactionDto, Transaction } from '../../../models/transaction.model';
+import { Category, Transaction } from '../../../models/transaction.model';
 import { CommonModule } from '@angular/common';
 import { dateToString, stringToDate } from '../../../utils/dateConverter';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-transaction-form',
@@ -12,6 +13,7 @@ import { dateToString, stringToDate } from '../../../utils/dateConverter';
   styleUrl: './transaction-form.component.css',
 })
 export class TransactionFormComponent {
+  private router = inject(Router);
   private store = inject(FinanceStore);
   transaction = input<Transaction>();
 
@@ -94,6 +96,8 @@ export class TransactionFormComponent {
         date: stringToDate(date),
         description,
       });
+      this.router.navigate(['/transactions']);
+      return;
     } else {
       this.store.addTransaction({
         amount,
