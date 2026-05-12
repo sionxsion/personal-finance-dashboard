@@ -23,14 +23,6 @@ export interface MonthlyComparison {
   expenseDiff: number;
 }
 
-export type OverspendingMonth = {
-  month: string;
-  overspending: boolean;
-  expense: number;
-  balance: number;
-  severity: 'low' | 'medium' | 'high' | null;
-};
-
 export type CreateTransactionDto = {
   amount: number;
   type: 'income' | 'expense';

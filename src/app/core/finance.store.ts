@@ -1,12 +1,9 @@
 import { computed, inject, Injectable } from '@angular/core';
 import { DataService } from './data.service';
-import {
-  CreateTransactionDto,
-  MonthlyTotals,
-  OverspendingMonth,
-  Transaction,
-} from '../models/transaction.model';
+import { CreateTransactionDto, MonthlyTotals, Transaction } from '../models/transaction.model';
 import { getLastMonths, stringToDate, timelineGenerator, toMonthKey } from '../utils/dateConverter';
+import { monthlyTotalsToList } from '../utils/financeSelectors';
+import { getNextTransactionId } from '../utils/transaction.utils';
 
 @Injectable({
   providedIn: 'root',
@@ -23,7 +20,7 @@ export class FinanceStore {
 
   addTransaction = (newTransaction: CreateTransactionDto) => {
     const transactionDate = stringToDate(newTransaction.date);
-    const id = this.getMaxTransactionId() + 1;
+    const id = getNextTransactionId(this.transactions());
 
     this.transactions.set([
       ...this.transactions(),
@@ -113,23 +110,6 @@ export class FinanceStore {
     return this.transactions().filter((t) => t.type === 'expense').length;
   });
 
-  currentMonthTotals = computed(() => {
-    const timeline = this.monthRange();
-
-    if (timeline.length === 0) return null;
-
-    const current = timeline[timeline.length - 1];
-    return this.monthlyTotals()[current];
-  });
-
-  prevMonthTotals = computed(() => {
-    const timeline = this.monthRange();
-    if (timeline.length < 2) return null;
-
-    const previous = timeline[timeline.length - 2];
-    return this.monthlyTotals()[previous];
-  });
-
   // ===== TIME GROUPING =====
 
   monthRange = computed(() => {
@@ -182,42 +162,6 @@ export class FinanceStore {
     return result;
   });
 
-  monthlyComparison = computed(() => {
-    const timeline = this.monthRange();
-    const totals = this.monthlyTotals();
-
-    if (timeline.length === 0) {
-      return {
-        current: null,
-        previous: null,
-        incomeDiff: null,
-        expenseDiff: null,
-      };
-    }
-
-    const currentKey = timeline[timeline.length - 1];
-    const previousKey = timeline[timeline.length - 2];
-
-    const current = totals[currentKey];
-    const previous = previousKey ? totals[previousKey] : null;
-
-    if (!previous) {
-      return {
-        current,
-        previous: null,
-        incomeDiff: null,
-        expenseDiff: null,
-      };
-    }
-
-    return {
-      current,
-      previous,
-      incomeDiff: current.totalIncome - previous.totalIncome,
-      expenseDiff: current.totalExpense - previous.totalExpense,
-    };
-  });
-
   // ===== TRENDS =====
 
   lastYearTrend = computed(() => {
@@ -234,69 +178,6 @@ export class FinanceStore {
         balance: data.totalIncome - data.totalExpense,
       };
     });
-  });
-
-  trendDirection = computed(() => {
-    const data = this.lastYearTrend();
-
-    if (data.length === 0) return null;
-
-    const first = data[0].balance;
-    const last = data[data.length - 1].balance;
-
-    if (first === last) return 'flat';
-    return last > first ? 'up' : 'down';
-  });
-
-  worstMonth = computed(() => {
-    const data = this.lastYearTrend();
-
-    if (data.length === 0) return null;
-
-    return data.reduce((worst, current) => (current.balance < worst.balance ? current : worst));
-  });
-
-  // ===== BEHAVIORAL INSIGHTS ====
-  overspendingDetection = computed(() => {
-    const trend = this.lastYearTrend();
-    return trend.map((item) => {
-      const overspending = item.balance < 0;
-      let severity: OverspendingMonth['severity'] = null;
-
-      if (overspending) {
-        if (item.balance > -100) severity = 'low';
-        else if (item.balance > -500) severity = 'medium';
-        else severity = 'high';
-      }
-
-      const monthData: OverspendingMonth = {
-        month: item.month,
-        overspending,
-        expense: item.expense,
-        balance: item.balance,
-        severity,
-      };
-
-      return monthData;
-    });
-  });
-
-  overspendingStreak = computed(() => {
-    const data = this.overspendingDetection();
-    return data.reduce(
-      (acc, item) => {
-        if (item.overspending) {
-          acc.currentStreak++;
-          if (acc.longestStreak < acc.currentStreak) {
-            acc.longestStreak = acc.currentStreak;
-          }
-        } else {
-          acc.currentStreak = 0;
-        }
-        return acc;
-      },
-      { currentStreak: 0, longestStreak: 0 },
-    );
   });
 
   // ===== CATEGORY ANALYTICS =====
@@ -333,16 +214,7 @@ export class FinanceStore {
     return base.map((m) => ({ month: m.month, amount: m.expense }));
   };
 
-  // ===== PRESENTATION HELPERS =====
-
   monthlyTotalsList = computed(() => {
-    const totals = this.monthlyTotals();
-
-    return Object.entries(totals)
-      .map(([month, value]) => ({
-        month,
-        ...value,
-      }))
-      .sort((a, b) => a.month.localeCompare(b.month));
+    return monthlyTotalsToList(this.monthlyTotals());
   });
 }
