@@ -1,8 +1,9 @@
-import { Component, computed, inject, signal } from '@angular/core';
+import { Component, computed, effect, inject, input, signal } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { FinanceStore } from '../../../core/finance.store';
 import { Category, CreateTransactionDto, Transaction } from '../../../models/transaction.model';
 import { CommonModule } from '@angular/common';
+import { dateToString } from '../../../utils/dateConverter';
 
 @Component({
   selector: 'app-transaction-form',
@@ -12,13 +13,32 @@ import { CommonModule } from '@angular/common';
 })
 export class TransactionFormComponent {
   private store = inject(FinanceStore);
+  transaction = input<Transaction>();
 
   isSubmitted = signal<boolean>(false);
   isSubmitting = signal<boolean>(false);
   categories: Category[] = ['food', 'salary', 'rent', 'transport', 'tech', 'leisure', 'other'];
 
+  constructor() {
+    effect(() => {
+      const transaction = this.transaction();
+
+      if (!transaction) return;
+
+      this.transactionForm.patchValue({
+        type: transaction.type,
+        amount: transaction.amount,
+        category: transaction.category,
+        date: dateToString(transaction.date),
+        description: transaction.description,
+      });
+    });
+  }
+
+  editType = this.transaction()?.type || 'income';
+
   transactionForm = new FormGroup({
-    type: new FormControl<'income' | 'expense'>('income', {
+    type: new FormControl<'income' | 'expense'>(this.editType, {
       nonNullable: true,
       validators: [Validators.required],
     }),

@@ -7,7 +7,9 @@
         <div class="card-row-top">
           <p class="bank-date">{{ transaction.date | date: 'dd-MM-yyyy' }}</p>
           <div class="bank-actions">
-            <button class="icon-btn edit" title="Edit">✎</button>
+            <a [routerLink]="['/transactions', transaction.id]" class="icon-btn edit" title="Edit"
+              >✎</a
+            >
             <button class="icon-btn delete" (click)="onDelete(transaction.id)" title="Delete">
               ✕
             </button>

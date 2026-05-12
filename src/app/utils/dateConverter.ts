@@ -40,3 +40,13 @@ export const stringToDate = (date: string): Date => {
   const [year, month, day] = date.split('-');
   return new Date(+year, +month - 1, +day);
 };
+
+export const dateToString = (date: Date): string | undefined => {
+  if (!date) return undefined;
+  const year = date.getFullYear();
+  const month = date.getMonth() + 1;
+  const day = date.getDay();
+  console.log(`${year}-${month}-${day}`);
+
+  return `${year}-${month}-${day}`;
+};
