@@ -122,6 +122,7 @@
   }
 
   /* Ensure the elements that were spanning 2 columns now only span 1 */
+  .form-textarea,
   .success-banner,
   .form-actions {
     grid-column: span 1;

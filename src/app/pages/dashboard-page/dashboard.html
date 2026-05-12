@@ -1,9 +1,9 @@
-<section class="section">
+<section>
   <div class="flex-container">
     <div class="flex-grow">
       <app-transaction-form />
     </div>
-    <div class="flex-container flex-grow flex-column">
+    <div class="flex-container flex-grow flex-column flex-around">
       <app-balance-card
         class="top-item"
         title="Total balance"
@@ -11,17 +11,17 @@
         [totalAmount]="totalAmount()"
       />
       <div class="top-item">
-        <h1>Summary</h1>
-        <hr class="margin-y-05" />
-        <p>
+        <h1 class="larger">Summary</h1>
+        <hr class="my-2" />
+        <p class="large my-1">
           Income -
           <span class="income"> {{ totals().income }} € </span>
         </p>
-        <p>
+        <p class="large my-1">
           Expense -
           <span class="expense"> {{ totals().expense }} € </span>
         </p>
-        <p>
+        <p class="large my-1">
           Top Category - <span> {{ topCategory() }} </span>
         </p>
       </div>

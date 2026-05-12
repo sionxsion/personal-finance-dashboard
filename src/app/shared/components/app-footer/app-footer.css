@@ -2,4 +2,5 @@ footer {
   text-align: center;
   background-color: azure;
   padding-block: 1rem;
+  margin-block-start: auto;
 }
