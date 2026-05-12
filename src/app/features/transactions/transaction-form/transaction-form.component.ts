@@ -21,6 +21,8 @@ export class TransactionFormComponent {
   isSubmitting = signal<boolean>(false);
   categories: Category[] = ['food', 'salary', 'rent', 'transport', 'tech', 'leisure', 'other'];
 
+  maxDate = new Date().toISOString().split('T')[0];
+
   constructor() {
     effect(() => {
       const transaction = this.transaction();
@@ -54,7 +56,14 @@ export class TransactionFormComponent {
     }),
     date: new FormControl<string>('', {
       nonNullable: true,
-      validators: [Validators.required],
+      validators: [
+        Validators.required,
+        (control) => {
+          const selectedDate = new Date(control.value);
+          const today = new Date();
+          return selectedDate > today ? { futureDate: true } : null;
+        },
+      ],
     }),
     description: new FormControl<string>('', {
       nonNullable: true,

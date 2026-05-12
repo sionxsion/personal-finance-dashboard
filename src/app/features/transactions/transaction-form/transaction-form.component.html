@@ -25,6 +25,7 @@
       <input
         id="amount"
         type="number"
+        min="0"
         formControlName="amount"
         class="form-input"
         [class.input-error]="amount?.invalid && amount?.touched"
@@ -59,12 +60,13 @@
       <input
         id="date"
         type="date"
+        [max]="maxDate"
         formControlName="date"
         class="form-input"
         [class.input-error]="date?.invalid && date?.touched"
       />
       @if (date?.invalid && (date?.dirty || date?.touched)) {
-        <p class="error-text">Date is required</p>
+        <p class="error-text">Date is required and cannot be in the future</p>
       }
     </div>
 
