@@ -29,12 +29,14 @@ export class FinanceStore {
         category: newTransaction.category,
         date: transactionDate,
         type: newTransaction.type,
+        description: newTransaction.description,
       },
     ]);
     return true;
   };
 
   editTransaction = (transaction: Transaction) => {
+    console.log(transaction);
     this.transactions();
   };
 

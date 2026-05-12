@@ -45,7 +45,7 @@
         [class.input-error]="category?.invalid && category?.touched"
       >
         @for (cat of categories; track cat) {
-          <option [value]="cat">{{ cat }}</option>
+          <option [value]="cat">{{ cat | titlecase }}</option>
         }
       </select>
       @if (category?.invalid && (category?.dirty || category?.touched)) {
@@ -65,6 +65,22 @@
       />
       @if (date?.invalid && (date?.dirty || date?.touched)) {
         <p class="error-text">Date is required</p>
+      }
+    </div>
+
+    <!-- Description -->
+    <div class="form-textarea">
+      <label for="description" class="form-label">Description</label>
+      <textarea
+        id="description"
+        type="textarea"
+        formControlName="description"
+        class="form-input"
+        maxlength="50"
+        [class.input-error]="description?.invalid && description?.touched"
+      ></textarea>
+      @if (description?.invalid && (description?.dirty || description?.touched)) {
+        <p class="error-text">Too Long Description</p>
       }
     </div>
 

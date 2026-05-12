@@ -2,10 +2,11 @@ import { Component, computed, inject, signal } from '@angular/core';
 import { FinanceStore } from '../../core/finance.store';
 import { ChartCardComponent } from '../../shared/components/chart-card/chart-card.component';
 import { Category } from '../../models/transaction.model';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-category-trend',
-  imports: [ChartCardComponent],
+  imports: [CommonModule, ChartCardComponent],
   templateUrl: './category-trend.component.html',
   styleUrl: './category-trend.component.css',
 })

@@ -52,6 +52,13 @@
   box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.2);
 }
 
+.form-textarea {
+  grid-column: span 2;
+  display: flex;
+  margin-top: 1rem;
+  flex-direction: column;
+}
+
 /* Validation Styles */
 .input-error {
   border-color: #ef4444 !important;

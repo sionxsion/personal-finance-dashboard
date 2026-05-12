@@ -106,6 +106,7 @@
   color: #6b7280;
   margin: 0;
   line-height: 1.4;
+  word-break: break-all;
 }
 
 /* Income state color modifier */

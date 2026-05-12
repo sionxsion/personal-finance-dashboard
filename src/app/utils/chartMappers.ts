@@ -1,4 +1,5 @@
 import { ChartConfiguration } from 'chart.js';
+import { IncomeExpenseData, lastYearTrendDataInterface } from '../models/transaction.model';
 
 export const DOUGHNUT_CHART_OPTIONS: ChartConfiguration<'doughnut'>['options'] = {
   responsive: true,
@@ -26,13 +27,6 @@ export const mapExpensesByCategoryChartData = (data: Record<string, number>) => 
   };
 };
 
-interface lastYearTrendDataInterface {
-  month: string;
-  income: number;
-  expense: number;
-  balance: number;
-}
-
 export const mapLastYearTrendChartData = (data: lastYearTrendDataInterface[]) => {
   return {
     labels: data.map((item) => item.month),
@@ -52,12 +46,6 @@ export const mapLastYearTrendChartData = (data: lastYearTrendDataInterface[]) =>
     ],
   };
 };
-
-interface IncomeExpenseData {
-  totalIncome: number;
-  totalExpense: number;
-  month: string;
-}
 
 export const mapIncomeVsExpenseChartData = (data: IncomeExpenseData[]) => {
   return {

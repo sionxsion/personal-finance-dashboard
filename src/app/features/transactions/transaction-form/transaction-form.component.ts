@@ -2,10 +2,11 @@ import { Component, computed, inject, signal } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { FinanceStore } from '../../../core/finance.store';
 import { Category, CreateTransactionDto, Transaction } from '../../../models/transaction.model';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-transaction-form',
-  imports: [ReactiveFormsModule],
+  imports: [CommonModule, ReactiveFormsModule],
   templateUrl: './transaction-form.component.html',
   styleUrl: './transaction-form.component.css',
 })
@@ -14,7 +15,7 @@ export class TransactionFormComponent {
 
   isSubmitted = signal<boolean>(false);
   isSubmitting = signal<boolean>(false);
-  categories: Category[] = ['food', 'rent', 'transport', 'tech', 'leisure', 'other'];
+  categories: Category[] = ['food', 'salary', 'rent', 'transport', 'tech', 'leisure', 'other'];
 
   transactionForm = new FormGroup({
     type: new FormControl<'income' | 'expense'>('income', {
@@ -32,6 +33,10 @@ export class TransactionFormComponent {
     date: new FormControl<string>('', {
       nonNullable: true,
       validators: [Validators.required],
+    }),
+    description: new FormControl<string>('', {
+      nonNullable: true,
+      validators: [Validators.maxLength(50)],
     }),
   });
 
@@ -51,16 +56,21 @@ export class TransactionFormComponent {
     return this.transactionForm.get('date');
   }
 
+  get description() {
+    return this.transactionForm.get('description');
+  }
+
   onSubmitTransaction = () => {
     this.isSubmitting.set(true);
 
-    const { amount, type, category, date } = this.transactionForm.getRawValue();
+    const { amount, type, category, date, description } = this.transactionForm.getRawValue();
 
     const newTransaction: CreateTransactionDto = {
       amount,
       type,
       category,
       date,
+      description,
     };
 
     const isSuccessfull = this.store.addTransaction(newTransaction);
@@ -74,6 +84,7 @@ export class TransactionFormComponent {
         amount: 0,
         category: 'food',
         date: '',
+        description: '',
       });
     }
     this.isSubmitting.set(false);

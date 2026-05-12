@@ -1,6 +1,6 @@
 export type TransactionType = 'expense' | 'income';
 
-export type Category = 'food' | 'rent' | 'transport' | 'tech' | 'leisure' | 'other';
+export type Category = 'food' | 'salary' | 'rent' | 'transport' | 'tech' | 'leisure' | 'other';
 
 export interface Transaction {
   id: number;
@@ -36,4 +36,18 @@ export type CreateTransactionDto = {
   type: 'income' | 'expense';
   category: Category;
   date: string;
+  description?: string;
 };
+
+export interface lastYearTrendDataInterface {
+  month: string;
+  income: number;
+  expense: number;
+  balance: number;
+}
+
+export interface IncomeExpenseData {
+  totalIncome: number;
+  totalExpense: number;
+  month: string;
+}
